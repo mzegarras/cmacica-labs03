@@ -67,6 +67,10 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
         return jdbcTemplate.update("delete from cliente where id=?",new Object[]{id});
         //return 0;
+        //return 0;
+        //return 0;
+        //return 0;//return 0;
+
     }
 
     @Override
