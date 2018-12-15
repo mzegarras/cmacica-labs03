@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: clientes
+  cloud:
+    config:
+      uri: http://localhost:8888/
+      fail-fast: true
+      enabled: true
+  #Temporary solution to solver incompatibility between spring-boot 2.1.0 and spring-cloud-config current version
+  main.allow-bean-definition-overriding: true
