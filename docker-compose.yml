@@ -10,3 +10,9 @@ services:
       MYSQL_DATABASE: customersdb
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+  rabbit:
+    image: rabbitmq:3-management-alpine
+    restart: always
+    ports:
+      - 8086:15672
+      - 5672:5672
