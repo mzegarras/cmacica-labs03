@@ -115,23 +115,15 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     }
 
+    @Override
+    public void abonarCuenta(String cuenta, double monto) {
 
+    }
 
+    @Override
+    public void debitarCuenta(String cuenta, double monto) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }

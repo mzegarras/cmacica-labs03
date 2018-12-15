@@ -13,4 +13,7 @@ public interface ClienteService {
     int update(Cliente cliente);
 
     void insert(Cliente cliente);
+    void insert(List<Cliente> clientes);
+
+    void transferir(String cuentaOrigen,String cuentaDestino,double monto);
 }

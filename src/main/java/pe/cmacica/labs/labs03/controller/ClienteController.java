@@ -48,6 +48,17 @@ public class ClienteController {
     }
     private static final Logger LOGGER = LoggerFactory.getLogger(ClienteController.class);
 
+
+    @PostMapping("/batch")
+    public HttpEntity<String> guardar(@RequestBody List<Cliente> clientes){
+
+        clienteService.insert(clientes);
+
+        return ResponseEntity.ok().build();
+
+    }
+
+
     @PostMapping
     public HttpEntity<String> guardar(@RequestBody Cliente cliente){
 
