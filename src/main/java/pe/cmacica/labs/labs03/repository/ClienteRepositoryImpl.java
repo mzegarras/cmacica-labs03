@@ -2,12 +2,14 @@ package pe.cmacica.labs.labs03.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import pe.cmacica.labs.labs03.dominio.Cliente;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
             cliente.setId(rs.getInt("id"));
             cliente.setNombres(rs.getString("nombres"));
+            cliente.setPaterno(rs.getString("paterno"));
+            cliente.setMaterno(rs.getString("materno"));
+
 
             return cliente;
         }
@@ -34,7 +39,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     @Override
     public List<Cliente> listar() {
 
-        return jdbcTemplate.query("select * from cliente", new ClienteMapper());
+        return jdbcTemplate.query("select id,nombres,paterno,materno from cliente", new ClienteMapper());
 
         /*
         List<Cliente> list =  new ArrayList<>();
@@ -52,7 +57,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     @Override
     public Cliente getCliente(int id) {
 
-        Cliente c = jdbcTemplate.queryForObject("select * from cliente where id=?",
+        Cliente c = jdbcTemplate.queryForObject("select id,nombres,paterno,materno from cliente where id=?",
                                             new Object[]{id},
                                             new ClienteMapper());
         /*Cliente c = new Cliente();
@@ -75,7 +80,58 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public int update(Cliente cliente) {
-        return jdbcTemplate.update("update cliente set nombres=? where id=?",
-                        new Object[]{cliente.getNombres(),cliente.getId()});
+        return jdbcTemplate.update("update cliente set nombres=?,paterno=?,materno=? where id=?",
+                        new Object[]{cliente.getNombres(),
+                                    cliente.getPaterno(),
+                                    cliente.getMaterno(),
+                                    cliente.getId()});
     }
+
+    @Override
+    public void insert(Cliente cliente) {
+
+        String SQL_INSERT = "insert into cliente(nombres,paterno,materno) values (?,?,?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(
+                new PreparedStatementCreator() {
+                    @Override
+                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                        PreparedStatement ps = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+
+                        ps.setString(1, cliente.getNombres());
+                        ps.setString(2, cliente.getPaterno());
+                        ps.setString(3, cliente.getMaterno());
+
+                        return ps;
+                    }
+                }, keyHolder);
+
+
+        int newUserId = keyHolder.getKey().intValue();
+
+        cliente.setId(newUserId);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

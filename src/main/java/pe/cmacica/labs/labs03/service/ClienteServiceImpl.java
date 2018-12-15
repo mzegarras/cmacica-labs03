@@ -33,4 +33,28 @@ public class ClienteServiceImpl implements ClienteService {
     public int update(Cliente cliente) {
         return clienteRepository.update(cliente);
     }
+
+    @Override
+    public void insert(Cliente cliente) {
+
+        clienteRepository.insert(cliente);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

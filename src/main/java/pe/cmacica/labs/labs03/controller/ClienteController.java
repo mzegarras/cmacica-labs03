@@ -15,6 +15,9 @@ import pe.cmacica.labs.labs03.service.ClienteService;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -54,10 +57,16 @@ public class ClienteController {
             return ResponseEntity.badRequest().build();
         }
 
+
+        clienteService.insert(cliente);
+
+
         LOGGER.debug("{}",cliente.getId());
         LOGGER.debug(cliente.getNombres());
 
-        return ResponseEntity.accepted().build();
+        //return ResponseEntity.accepted().build();
+
+        return ResponseEntity.ok().build();
 
     }
 
