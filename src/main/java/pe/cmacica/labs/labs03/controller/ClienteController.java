@@ -9,9 +9,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pe.cmacica.labs.labs03.controller.dto.ClientesDTO;
 import pe.cmacica.labs.labs03.dominio.Cliente;
 import pe.cmacica.labs.labs03.service.ClienteService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +52,9 @@ public class ClienteController {
 
 
     @PostMapping("/batch")
-    public HttpEntity<String> guardar(@RequestBody List<Cliente> clientes){
+    public HttpEntity<String> guardar(@Valid @RequestBody ClientesDTO clientesDTO){
 
-        clienteService.insert(clientes);
+        clienteService.insert(clientesDTO.getClientes());
 
         return ResponseEntity.ok().build();
 

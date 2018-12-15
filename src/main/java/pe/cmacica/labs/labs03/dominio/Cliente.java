@@ -1,11 +1,17 @@
 package pe.cmacica.labs.labs03.dominio;
 
+import javax.validation.constraints.NotNull;
+
 public class Cliente {
 
     private int id;
     private String nombres;
     private String paterno;
+
+    @NotNull
     private String materno;
+
+
 
     public String getPaterno() {
         return paterno;
