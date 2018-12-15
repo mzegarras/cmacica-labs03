@@ -30,8 +30,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
             cliente.setNombres(rs.getString("nombres"));
             cliente.setPaterno(rs.getString("paterno"));
             cliente.setMaterno(rs.getString("materno"));
-
-
+            cliente.setEdad(rs.getInt("edad"));
+            cliente.setEmail(rs.getString("email"));
             return cliente;
         }
     }
@@ -39,7 +39,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     @Override
     public List<Cliente> listar() {
 
-        return jdbcTemplate.query("select id,nombres,paterno,materno from cliente", new ClienteMapper());
+        return jdbcTemplate.query("select id,nombres,paterno,materno,edad,email from cliente", new ClienteMapper());
 
         /*
         List<Cliente> list =  new ArrayList<>();
@@ -80,17 +80,19 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public int update(Cliente cliente) {
-        return jdbcTemplate.update("update cliente set nombres=?,paterno=?,materno=? where id=?",
+        return jdbcTemplate.update("update cliente set nombres=?,paterno=?,materno=?,edad=?,email=? where id=?",
                         new Object[]{cliente.getNombres(),
                                     cliente.getPaterno(),
                                     cliente.getMaterno(),
-                                    cliente.getId()});
+                                    cliente.getId(),
+                                    cliente.getEdad(),
+                                    cliente.getEmail()});
     }
 
     @Override
     public void insert(Cliente cliente) {
 
-        String SQL_INSERT = "insert into cliente(nombres,paterno,materno) values (?,?,?)";
+        String SQL_INSERT = "insert into cliente(nombres,paterno,materno,edad,email) values (?,?,?,?,?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -103,6 +105,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
                         ps.setString(1, cliente.getNombres());
                         ps.setString(2, cliente.getPaterno());
                         ps.setString(3, cliente.getMaterno());
+                        ps.setInt(4, cliente.getEdad());
+                        ps.setString(5, cliente.getEmail());
 
                         return ps;
                     }

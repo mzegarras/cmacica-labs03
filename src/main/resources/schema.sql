@@ -9,5 +9,7 @@ CREATE TABLE cliente (
                        nombres VARCHAR(100) NOT NULL,
                        paterno VARCHAR(100) NOT NULL,
                        materno VARCHAR(100) NOT NULL,
+                       edad integer,
+                       email VARCHAR(100) NULL,
                        PRIMARY KEY (id));
 

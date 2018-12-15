@@ -1,7 +1,10 @@
 package pe.cmacica.labs.labs03.dominio;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.*;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Cliente {
 
     private int id;
