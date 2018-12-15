@@ -1,0 +1,9 @@
+version: '3'
+services:
+  lab03-clientes:
+    image: "mzegarra/lab03-clientes"
+    build:
+      context: ../../../
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - 8085:8085
