@@ -62,13 +62,14 @@ public class ClienteController {
 
 
     @PostMapping
-    public HttpEntity<String> guardar(@RequestBody Cliente cliente){
+    public HttpEntity<String> guardar(@Valid @RequestBody Cliente cliente){
 
         LOGGER.debug("GUARDAR");
 
+        /*
         if(StringUtils.isBlank(cliente.getNombres())){
             return ResponseEntity.badRequest().build();
-        }
+        }*/
 
 
         clienteService.insert(cliente);
@@ -85,7 +86,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public HttpEntity<String> guardar(@PathVariable("id") int id,
-                                      @RequestBody Cliente cliente){
+                                      @Valid @RequestBody Cliente cliente){
 
         LOGGER.debug("UPDATE");
         if(id==0){
