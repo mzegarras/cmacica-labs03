@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pe.cmacica.labs.labs03.config.RabbitConfig;
+import pe.cmacica.labs.labs03.dominio.Cliente;
 import pe.cmacica.labs.labs03.service.ClienteService;
 
 @Component
@@ -20,9 +21,9 @@ public class ClienteDeleteListener {
 
 
     @RabbitListener(queues = RabbitConfig.QUEUE_CLIENTES_DELETE)
-    public void processOrder(Integer id) {
-        clienteService.eliminar(id);
-        logger.info("Delete: {}",id);
+    public void processOrder(Cliente cliente) {
+        clienteService.eliminar(cliente);
+        logger.info("Delete: {}",cliente);
     }
 
 }

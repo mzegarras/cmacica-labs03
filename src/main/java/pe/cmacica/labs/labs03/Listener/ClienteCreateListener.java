@@ -13,7 +13,7 @@ import pe.cmacica.labs.labs03.service.ClienteService;
 @Component
 public class ClienteCreateListener {
 
-    static final Logger logger = LoggerFactory.getLogger(ClienteDeleteListener.class);
+    static final Logger logger = LoggerFactory.getLogger(ClienteCreateListener.class);
 
     @Autowired
     private ClienteService clienteService;

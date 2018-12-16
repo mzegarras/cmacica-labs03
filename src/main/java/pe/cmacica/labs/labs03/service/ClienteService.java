@@ -10,9 +10,10 @@ public interface ClienteService {
     List<Cliente> listar();
     Cliente getCliente(int id);
 
+    void notify(Cliente cliente,String routing);
 
-    void eliminarNotify(int id);
-    int eliminar(int id);
+    void eliminarNotify(Cliente cliente);
+    int eliminar(Cliente cliente);
 
     int update(Cliente cliente);
     void updateNotify(Cliente cliente);

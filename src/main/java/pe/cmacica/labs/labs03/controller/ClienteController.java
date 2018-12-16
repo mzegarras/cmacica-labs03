@@ -62,7 +62,8 @@ public class ClienteController {
 
 
     @PostMapping
-    public HttpEntity<String> guardar(@Valid @RequestBody Cliente cliente){
+    public HttpEntity<String> guardar(@RequestHeader(name = "X-CORRELATION", required = false) String correlationId,
+                                      @Valid @RequestBody Cliente cliente){
 
         LOGGER.debug("GUARDAR");
 
@@ -71,7 +72,7 @@ public class ClienteController {
             return ResponseEntity.badRequest().build();
         }*/
 
-
+        cliente.setTxId(correlationId);
         clienteService.insertNotify(cliente);
 
 
@@ -85,7 +86,8 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<String> guardar(@PathVariable("id") int id,
+    public HttpEntity<String> guardar(
+                                      @PathVariable("id") int id,
                                       @Valid @RequestBody Cliente cliente){
 
         LOGGER.debug("UPDATE");
@@ -95,6 +97,7 @@ public class ClienteController {
 
         LOGGER.debug("{}",cliente.getId());
         LOGGER.debug(cliente.getNombres());
+
 
         cliente.setId(id);
         clienteService.updateNotify(cliente);
@@ -113,7 +116,10 @@ public class ClienteController {
             return ResponseEntity.badRequest().build();
         }
 
-        clienteService.eliminarNotify(id);
+        Cliente cliente = new Cliente();
+        cliente.setId(id);
+
+        clienteService.eliminarNotify(cliente);
 
         //return ResponseEntity.accepted().build();
         return ResponseEntity.ok().build();

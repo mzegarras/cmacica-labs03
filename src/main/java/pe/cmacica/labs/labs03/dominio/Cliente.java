@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.*;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Cliente {
+public class Cliente extends Operation {
 
     private int id;
 

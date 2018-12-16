@@ -40,24 +40,41 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public void eliminarNotify(int id) {
+    public void notify(Cliente cliente, String routing) {
+
         this.rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_CLIENTES,
-                RabbitConfig.EXCHANGE_CLIENTES_DELETE,
-                id);
+                RabbitConfig.EXCHANGE_CLIENTES_NOTIFY,
+                cliente);
+
     }
 
     @Override
-    public int eliminar(int id) {
+    public void eliminarNotify(Cliente cliente) {
+        this.rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_CLIENTES,
+                RabbitConfig.EXCHANGE_CLIENTES_DELETE,
+                cliente);
+    }
 
+    @Override
+    public int eliminar(Cliente cliente) {
 
+        cliente.setStatus(0);
+        int affected = clienteRepository.eliminar(cliente.getId());
+        cliente.setStatus(1);
 
-        return clienteRepository.eliminar(id);
+        notify(cliente,RabbitConfig.EXCHANGE_CLIENTES_NOTIFY);
+
+        return affected;
     }
 
     @Override
     public int update(Cliente cliente) {
 
-        return clienteRepository.update(cliente);
+        int affected = clienteRepository.update(cliente);
+
+        notify(cliente,RabbitConfig.EXCHANGE_CLIENTES_NOTIFY);
+
+        return affected;
 
     }
 
@@ -72,10 +89,14 @@ public class ClienteServiceImpl implements ClienteService {
     public void insert(Cliente cliente) {
 
         //this.rabbitTemplate.convertAndSend(RabbitConfig.QUEUE_CLIENTES_CREATE, cliente);
-
-
+        cliente.setStatus(0);
 
         clienteRepository.insert(cliente);
+
+        cliente.setStatus(1);
+
+        notify(cliente,RabbitConfig.EXCHANGE_CLIENTES_NOTIFY);
+
 
     }
 

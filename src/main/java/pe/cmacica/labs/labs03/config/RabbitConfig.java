@@ -18,6 +18,8 @@ public class RabbitConfig {
     public static final String EXCHANGE_CLIENTES = "clientes.exchange";
 
 
+    public static final String QUEUE_APPLICATIONS="applications.queue";
+
     public static final String QUEUE_CLIENTES_CREATE = "clientes.create.queue";
 
 
@@ -29,6 +31,7 @@ public class RabbitConfig {
     public static final String EXCHANGE_CLIENTES_CREATE = "clientes.create";
     public static final String EXCHANGE_CLIENTES_UPDATE = "clientes.update";
     public static final String EXCHANGE_CLIENTES_DELETE = "clientes.delete";
+    public static final String EXCHANGE_CLIENTES_NOTIFY = "clientes.notify";
 
     @Bean
     @Qualifier(QUEUE_CLIENTES_CREATE)
