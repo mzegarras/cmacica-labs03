@@ -1,12 +1,30 @@
 version: '3'
 services:
+  config-server:
+    image: "mzegarra/config-server"
+    environment:
+      SERVER_GIT_URI: https://github.com/mzegarras/cmacica-config.git
+      SERVER_GIT_USER:
+      SERVER_GIT_PASSWORD:
+    ports:
+      - 8888:888
+
   lab03-clientes:
     image: "mzegarra/lab03-clientes"
     build:
       context: .
       dockerfile: ./src/main/docker/Dockerfile
+      #args:
+        #- SERVER_CONFIG_URI=http://localhost:8888/
+        #- SERVER_CONFIG_ENABLED=true
+    environment:
+      SERVER_CONFIG_URI: http://config-server:8888/
+      SERVER_CONFIG_ENABLED: "true"
     ports:
       - 8085:8085
+    depends_on:
+      - config-server
+      - db
   db:
     image: mysql:5.7
     restart: always
@@ -17,6 +35,7 @@ services:
       MYSQL_DATABASE: customersdb
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+
   rabbit:
     image: rabbitmq:3-management-alpine
     restart: always

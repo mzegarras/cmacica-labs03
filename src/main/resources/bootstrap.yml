@@ -3,8 +3,9 @@ spring:
     name: clientes
   cloud:
     config:
-      uri: {SERVER_CONFIG_URI:http://localhost:8888/}
+      uri: ${SERVER_CONFIG_URI:""}
       fail-fast: true
-      enabled: {SERVER_CONFIG_ENABLED:false}
+      enabled: ${SERVER_CONFIG_ENABLED:false}
+
   #Temporary solution to solver incompatibility between spring-boot 2.1.0 and spring-cloud-config current version
   main.allow-bean-definition-overriding: true
