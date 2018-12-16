@@ -42,3 +42,8 @@ services:
     ports:
       - 8086:15672
       - 5672:5672
+  redis:
+    image: redis:4-alpine
+    #command: sh -c 'echo "requirepass password" | redis-server -'
+    ports:
+      - 6379:6379

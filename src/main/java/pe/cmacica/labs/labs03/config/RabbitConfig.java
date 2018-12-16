@@ -51,6 +51,12 @@ public class RabbitConfig {
         return QueueBuilder.durable(QUEUE_CLIENTES_DELETE).build();
     }
 
+    @Bean
+    @Qualifier(QUEUE_APPLICATIONS)
+    Queue applicationQueue() {
+        return QueueBuilder.durable(QUEUE_APPLICATIONS).build();
+    }
+
 
     @Bean
     Exchange ordersExchange() {
@@ -72,6 +78,10 @@ public class RabbitConfig {
         return BindingBuilder.bind(queue).to(ordersExchange).with(EXCHANGE_CLIENTES_DELETE);
     }
 
+    @Bean
+    Binding bindingApplication(@Qualifier(QUEUE_APPLICATIONS) Queue queue, TopicExchange ordersExchange) {
+        return BindingBuilder.bind(queue).to(ordersExchange).with("#");
+    }
 
     @Bean
     public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {

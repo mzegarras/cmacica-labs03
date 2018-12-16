@@ -26,3 +26,9 @@ spring.rabbitmq.host: localhost
 spring.rabbitmq.port: 5672
 spring.rabbitmq.username: guest
 spring.rabbitmq.password: guest
+
+#redis
+
+spring.redis.host: localhost # Redis server host.
+spring.redis.port: 6379 # Redis server port.
+#spring.redis.password: password # Redis server port.

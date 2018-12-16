@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pe.cmacica.labs.labs03.config.RabbitConfig;
 import pe.cmacica.labs.labs03.dominio.Operation;
+import pe.cmacica.labs.labs03.service.ApplicationService;
 import pe.cmacica.labs.labs03.service.ClienteService;
 
 @Component
@@ -17,12 +18,17 @@ public class ApplicationListeners{
         @Autowired
         private ClienteService clienteService;
 
+        @Autowired
+        private ApplicationService applicationService;
 
         @RabbitListener(queues = RabbitConfig.QUEUE_APPLICATIONS)
         public void processOrder(final Operation operation) {
 
             logger.info("Received getId {}", operation.getTxId());
             logger.info("Received getStatus: {}", operation.getStatus());
+
+            applicationService.save(operation.getTxId(),operation);
+
 
         }
 

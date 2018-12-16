@@ -9,11 +9,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pe.cmacica.labs.labs03.controller.dto.ClientesDTO;
 import pe.cmacica.labs.labs03.dominio.Cliente;
 import pe.cmacica.labs.labs03.service.ClienteService;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,9 +81,16 @@ public class ClienteController {
         LOGGER.debug("{}",cliente.getId());
         LOGGER.debug(cliente.getNombres());
 
-        //return ResponseEntity.accepted().build();
 
-        return ResponseEntity.ok().build();
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("applications/correlations/{correlationId}")
+                .buildAndExpand(cliente.getTxId()).toUri();
+
+        return ResponseEntity.accepted().location(location).build();
+
+
+
+        //return ResponseEntity.ok().build();
 
     }
 
