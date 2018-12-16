@@ -19,3 +19,10 @@ spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
 #Inicializar bd
 spring.jpa.hibernate.ddl-auto: create-drop
 spring.datasource.initialization-mode: always
+
+
+#rabbitMQ
+spring.rabbitmq.host: localhost
+spring.rabbitmq.port: 5672
+spring.rabbitmq.username: guest
+spring.rabbitmq.password: guest

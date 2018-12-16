@@ -9,10 +9,16 @@ public interface ClienteService {
 
     List<Cliente> listar();
     Cliente getCliente(int id);
+
+
+    void eliminarNotify(int id);
     int eliminar(int id);
+
     int update(Cliente cliente);
+    void updateNotify(Cliente cliente);
 
     void insert(Cliente cliente);
+    void insertNotify(Cliente cliente);
     void insert(List<Cliente> clientes);
 
     void transferir(String cuentaOrigen,String cuentaDestino,double monto);

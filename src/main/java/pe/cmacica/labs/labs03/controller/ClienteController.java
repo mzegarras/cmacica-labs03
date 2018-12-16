@@ -72,7 +72,7 @@ public class ClienteController {
         }*/
 
 
-        clienteService.insert(cliente);
+        clienteService.insertNotify(cliente);
 
 
         LOGGER.debug("{}",cliente.getId());
@@ -97,7 +97,7 @@ public class ClienteController {
         LOGGER.debug(cliente.getNombres());
 
         cliente.setId(id);
-        clienteService.update(cliente);
+        clienteService.updateNotify(cliente);
 
         //return ResponseEntity.accepted().build();
         return ResponseEntity.ok().build();
@@ -113,7 +113,7 @@ public class ClienteController {
             return ResponseEntity.badRequest().build();
         }
 
-        clienteService.eliminar(id);
+        clienteService.eliminarNotify(id);
 
         //return ResponseEntity.accepted().build();
         return ResponseEntity.ok().build();
